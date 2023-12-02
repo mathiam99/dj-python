@@ -1,0 +1,130 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<div class="col-6 mx-auto pt-4">
+  <h2 class="text-center">Register</h2>
+  <!--{% if form.errors %} 
+    {% for field in form %} 
+      {% for error in field.errors %}
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+      {% endfor %} 
+    {% endfor %} 
+  {% endif %}-->
+  <form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{form.username.id_for_label}}"
+        >{{form.username.label}}</label
+      >
+      <input
+        type="{{form.username.widget.input_type}}"
+        class="form-control"
+        id="{{form.username.id_for_label}}"
+        placeholder="Enter username"
+        name="{{form.username.name}}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.first_name.id_for_label}}"
+        >{{form.first_name.label}}</label
+      >
+      <input
+        type="{{form.first_name.widget.input_type}}"
+        class="form-control"
+        id="{{form.first_name.id_for_label}}"
+        name="{{form.first_name.name}}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.middle_name.id_for_label}}"
+        >{{form.middle_name.label}} (Optional)</label
+      >
+      <input
+        type="{{form.middle_name.widget.input_type}}"
+        class="form-control"
+        id="{{form.middle_name.id_for_label}}"
+        name="{{form.middle_name.name}}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.last_name.id_for_label}}"
+        >{{form.last_name.label}}</label
+      >
+      <input
+        type="{{form.last_name.widget.input_type}}"
+        class="form-control"
+        id="{{form.last_name.id_for_label}}"
+        name="{{form.last_name.name}}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.email.id_for_label}}"
+        >{{form.email.label}}</label
+      >
+      <input
+        type="email"
+        class="form-control"
+        id="{{form.email.id_for_label}}"
+        name="{{form.email.name}}"
+        placeholder="example@domain.com"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.birth_date.id_for_label}}"
+        >{{form.birth_date.label}}</label
+      >
+      <input
+        type="date"
+        class="form-control"
+        id="{{form.birth_date.id_for_label}}"
+        name="{{form.birth_date.name}}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.Phone.id_for_label}}">{{form.Phone.label}}</label>
+      <input
+        type="{{form.Phone.widget.input_type}}"
+        class="form-control"
+        id="{{form.Phone.id_for_label}}"
+        name="{{form.Phone.name}}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.password1.id_for_label}}"
+        >{{form.password1.label}}</label
+      >
+      <input
+        type="password"
+        class="form-control"
+        id="{{form.password1.id_for_label}}"
+        name="{{form.password1.name}}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="{{form.password2.id_for_label}}"
+        >{{form.password2.label}}</label
+      >
+      <input
+        type="password"
+        class="form-control"
+        id="{{form.password2.id_for_label}}"
+        name="{{form.password2.name}}"
+      />
+    </div>
+    <div class="text-center mt-2">
+      <p>Already have an account ? <a href="{% url 'login'%}">Login</a></p>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-warning mt-2">Register</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

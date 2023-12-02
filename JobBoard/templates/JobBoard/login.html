@@ -1,0 +1,65 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<div class="col-6 mx-auto">
+  <h2 class="text-center pt-4">Login</h2>
+  <!--{% if form.errors %} 
+    {% for field in form %} 
+      {% for error in field.errors %}
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+      {% endfor %} 
+    {% endfor %} 
+  {% endif %}-->
+  <form method="post" action="{% url 'login'%}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{form.username.id_for_label}}"
+        >{{form.username.label}}</label
+      >
+      <input
+        type="{{form.username.widget.input_type}}"
+        class="form-control"
+        id="{{form.username.id_for_label}}"
+        placeholder="Enter username"
+        name="{{form.username.name}}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="{{form.password.id_for_label}}"
+        >{{form.password.label}}</label
+      >
+      <input
+        class="form-control"
+        id="{{form.password.id_for_label}}"
+        placeholder="Password"
+        type="password"
+        name="{{form.password.name}}"
+      />
+    </div>
+
+    <div class="text-center mt-2">
+      <button type="submit" class="btn btn-warning mt-4">Login</button>
+    </div>
+    <div class="text-center">
+      <p>Not a member ? <a href="{% url 'register'%}">Register</a></p>
+      <p>or sign up with:</p>
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-facebook-f"></i>
+      </button>
+
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-google"></i>
+      </button>
+
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-twitter"></i>
+      </button>
+
+      <button type="button" class="btn btn-link btn-floating mx-1">
+        <i class="fab fa-github"></i>
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

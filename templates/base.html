@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Tumbleweed JB</title>
+  </head>
+  <body>
+    <div class="b-example-divider"></div>
+
+    <header class="p-3 text-bg-dark">
+      <div class="container">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+          >
+            Tumbleweed
+          </a>
+
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+          >
+            <li>
+              <a href="{% url 'companies'%}" class="nav-link px-2 text-white"
+                >Companies</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'contact'%}" class="nav-link px-2 text-white"
+                >Contact</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'about'%}" class="nav-link px-2 text-white"
+                >About</a
+              >
+            </li>
+          </ul>
+
+          {% if user.is_authenticated %} Hello, {{user.first_name}} &nbsp;
+
+          <div class="dropdown text-end">
+            <a
+              href="#"
+              class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="{% static 'user-profile.png'%}"
+                alt="mdo"
+                width="32"
+                height="32"
+                class="rounded-circle"
+              />
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="#">My applications</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout'%}">Logout</a>
+              </li>
+            </ul>
+          </div>
+          {% else %}
+          <div class="text-end">
+            <a href="{% url 'login'%}" class="btn btn-outline-light me-2">
+              Login
+            </a>
+            <a href="{% url 'register'%}" class="btn btn-warning">Sign-up</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+    <div class="container my-4">{% block content %} {% endblock content %}</div>
+  </body>
+
+  <div class="my-5">
+    <footer class="text-white text-center text-lg-start bg-dark">
+      <div class="container p-4">
+        <div class="row mt-4">
+          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-4">About Tumbleweed</h5>
+
+            <p>
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui
+              blanditiis praesentium voluptatum deleniti atque corrupti.
+            </p>
+
+            <p>
+              Blanditiis praesentium voluptatum deleniti atque corrupti quos
+              dolores et quas molestias.
+            </p>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase mb-4 pb-1">Search something</h5>
+
+            <div class="form-outline form-white mb-4">
+              <input
+                type="text"
+                id="formControlLg"
+                class="form-control form-control-lg"
+              />
+              <label class="form-label" for="formControlLg">Search</label>
+            </div>
+
+            <ul class="fa-ul" style="margin-left: 1.65em">
+              <li class="mb-3">
+                <span class="fa-li"><i class="fas fa-home"></i></span
+                ><span class="ms-2">Wano Kuni, WK 10012, OP</span>
+              </li>
+              <li class="mb-3">
+                <span class="fa-li"><i class="fas fa-envelope"></i></span
+                ><span class="ms-2">contact@tumbleweed.com</span>
+              </li>
+              <li class="mb-3">
+                <span class="fa-li"><i class="fas fa-phone"></i></span
+                ><span class="ms-2">+ 00 000 000 00</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Grid container -->
+      <div>
+        <!-- Copyright -->
+        <div
+          class="text-center p-3"
+          style="background-color: rgba(0, 0, 0, 0.2)"
+        >
+          © 2025 Tumbleweed:
+          <a class="text-white" href="https://mdbootstrap.com/"
+            >Tumbleweedjb.com</a
+          >
+        </div>
+        <!-- Copyright -->
+      </div>
+      <!-- End of .container -->
+    </footer>
+  </div>
+</html>

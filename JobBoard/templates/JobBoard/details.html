@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-user-tie"></i> {{ object.position_name }}</h5>
+            <p class="card-text"><strong><i class="fas fa-id-badge"></i> Reference:</strong> {{ object.reference }}</p>
+            <p class="card-text"><strong><i class="fas fa-info-circle"></i> Description:</strong> {{ object.description|safe }}</p>
+            <p class="card-text"><strong><i class="fas fa-file-contract"></i> Contract Type:</strong> {{ object.type }}</p>
+            <p class="card-text"><strong><i class="fas fa-money-bill-wave"></i> Salary:</strong> {{ object.salary }} $ per hour</p>
+            <p class="card-text"><strong><i class="far fa-clock"></i> Expires in:</strong> {{ object.created_at|timesince:object.expiration_date }}</p>
+        
+            <div class="text-center">
+                <a href="#" class="btn btn-warning"><i class="fas fa-check-circle"></i> Apply now</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}
+

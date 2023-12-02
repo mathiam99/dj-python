@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<h3>Latest job openings</h3>
+<div class="container">
+  <div class="row">
+      {% for data in data_page %}
+      <div class="col-md-4 mb-4">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-user-tie"></i> {{ data.position_name }}</h5>
+                  <p class="card-text"><i class="fas fa-info-circle"></i> Type: {{ data.type }}</p>
+                  <p class="card-text"><i class="fas fa-building"></i> Company: {{ data.Company.name }}</p>
+                  <p class="card-text">
+                      <small class="text-muted"><i class="fas fa-clock"></i> Expires in: {{ data.created_at|timesince:data.expiration_date }}</small>
+                  </p>
+                  {# Add other fields as needed #}
+                  <a href="{% url 'opening-details' pk=data.pk %}" class="btn btn-warning"><i class="fas fa-search"></i> See Details</a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

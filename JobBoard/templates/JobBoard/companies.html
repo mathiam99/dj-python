@@ -1,0 +1,86 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+<h2>Companies</h2>
+<p class="text-justify">
+  Down below you'll find the list of all companies around you with their area of
+  activity.
+</p>
+
+<div class="container mt-4">
+  <div class="row">
+      {% for data in data_page %}
+      <div class="col-md-4 mt-3">
+          <div class="card p-3">
+              <div class="d-flex flex-row mb-3">
+                  <img src="../../media/{{data.logo}}" width="70" class="rounded-circle" alt="Logo">
+                  <div class="d-flex flex-column ml-2">
+                      <span class="font-weight-bold">{{data.name}}</span>
+                      <span class="text-muted">Sector: {{data.sector}}</span>
+                  </div>
+              </div>
+              <h6><i class="fas fa-mail-bulk"></i> : {{data.email}}</h6>
+              <div class="d-flex justify-content-between mt-3">
+                  <span class="text-muted">Employees: {{data.employee_size}}</span>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+ 
+
+<!--<div class="pagination">
+  <span class="step-links">
+      {% if data_page.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ data_page.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ data_page.number }} of {{ data_page.paginator.num_pages }}.
+      </span>
+
+      {% if data_page.has_next %}
+          <a href="?page={{ data_page.next_page_number }}">next</a>
+          <a href="?page={{ data_page.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+  </span>
+</div>-->
+<div class="container">
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {% if data_page.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page=1" aria-label="First">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{ data_page.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      {% endif %}
+
+      <li class="page-item disabled">
+        <span class="page-link">Page {{ data_page.number }} of {{ data_page.paginator.num_pages }}</span>
+      </li>
+
+      {% if data_page.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ data_page.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?page={{ data_page.paginator.num_pages }}" aria-label="Last">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+
+{% endblock content %}
