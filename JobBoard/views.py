@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .form import RegistrationForm
+from .form import RegistrationForm, CompanyFilterForm
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import DetailView
@@ -81,6 +81,12 @@ def home_view(request):
 
 def companies_page(request):
     Companies = Company.objects.all().order_by('name')
+    queryset = Company.objects.all()
+    form = CompanyFilterForm(request.GET)
+    if form.is_valid():
+        sector = form.cleaned_data.get('sector')
+        if sector:
+            queryset = queryset.filter(sector=sector)
     paginator = Paginator(Companies, 9)
     page = request.GET.get('page')
     try:
@@ -92,9 +98,25 @@ def companies_page(request):
 
     context = {
         'data_page': data_page,
+        'queryset': queryset,
+        'form': form,
         }
     return render(request, "JobBoard/companies.html", context)
 
+
+def companies_search_page(request):
+    queryset = Company.objects.all()
+    form = CompanyFilterForm(request.GET)
+    if form.is_valid():
+        sector = form.cleaned_data.get('sector')
+        if sector:
+            queryset = queryset.filter(sector=sector)
+    
+    context = {
+        'queryset': queryset,
+        'form': form,
+        }
+    return render(request, "JobBoard/companies_search.html", context)
 
 def contact(request):
     return render(request, "JobBoard/contact.html")
