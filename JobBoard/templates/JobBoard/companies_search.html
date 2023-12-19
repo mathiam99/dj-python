@@ -1,5 +1,28 @@
 {% extends "base.html" %} {% block content %}
 
+<p class="text-justify">
+  Down below you'll find the list of all companies around you with their area of
+  activity.
+</p>
+
+
+<form method="get" action="{% url 'sector_filter' %}" class="my-4">
+  {% csrf_token %}
+
+  <!-- Use Bootstrap flex utility classes -->
+  <div class="d-flex flex-row align-items-end">
+    <div class="flex-grow-1 mr-2">
+      {{ form.sector.label_tag }} {{ form.sector }}
+    </div>
+
+    <!-- Add more form fields as needed -->
+
+    <div>
+      <button type="submit" class="btn btn-warning">Filter</button>
+    </div>
+  </div>
+</form>
+
 <div class="container mt-4">
   <div class="row">
     {% for item in queryset %}
