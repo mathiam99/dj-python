@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+    <h1>Dashboard</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="Chart1" style="width: 100%;"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="Chart2" style="width: 100%;"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var ctx = document.getElementById('Chart1').getContext('2d');
+
+    var data = JSON.parse('{{ sector_data|safe }}');
+
+    var labels = Object.keys(data);
+    var values = Object.values(data);
+
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Companies offer by sector',
+                data: values,
+                backgroundColor: 'rgba(0, 255, 199, 0.8)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    var ctx = document.getElementById('Chart2').getContext('2d');
+
+    var data = JSON.parse('{{ employee_data|safe }}');
+
+    var labels = Object.keys(data);
+    var values = Object.values(data);
+
+    var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '',
+                data: values,
+                backgroundColor: ['rgba(39, 245, 178, 0.8)', 'rgba(255, 247, 4, 0.99)', 'rgba(144, 144, 144, 0.99)', 'rgba(231, 72, 10, 0.99)' ],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+});
+</script>
+{% endblock content %}
+    
