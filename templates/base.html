@@ -63,6 +63,11 @@
                 >About</a
               >
             </li>
+            <li>
+              <a href="{% url 'companies-json'%}" class="nav-link px-2 text-white"
+                >Statistics</a
+              >
+            </li>
           </ul>
 
           {% if user.is_authenticated %} Hello, {{user.first_name}} &nbsp;
