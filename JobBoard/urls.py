@@ -29,6 +29,7 @@ urlpatterns = [
     path('companies/', views.companies_page, name='companies'),
     path('contact/', views.contact, name='contact'),
     path('openings/details/<uuid:pk>/', views.opening_details.as_view(), name='opening-details'),
-    path('compannies/search', view=views.companies_search_page, name="sector_filter")
+    path('compannies/search', view=views.companies_search_page, name="sector_filter"),
+    path('statistics', views.CompanyJsonView.as_view(), name="companies-json")
 ]
 

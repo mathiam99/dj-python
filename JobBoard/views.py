@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-#from django.http import JsonResponse
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -7,6 +7,10 @@ from .form import RegistrationForm, CompanyFilterForm
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import DetailView
+from .serializers import CompanySerializer
+from django.views import View
+import json
+
 
 # Create your views here.
 def index(request):
@@ -117,6 +121,32 @@ def companies_search_page(request):
         'form': form,
         }
     return render(request, "JobBoard/companies_search.html", context)
+
+
+
+class CompanyJsonView(View):
+    template_name = "JobBoard/charts.html"
+
+    def get(self, request, *args, **kwargs):
+        company = Company.objects.all()
+        serializer = CompanySerializer(company, many=True)
+        #data = serializer.data
+        company_count = {}
+        for companies in serializer.data:
+            company = companies["sector"]
+            company_count[company] = company_count.get(company, 0) + 1
+
+        sector_data = json.dumps(company_count)
+
+        employee_size_count = {}
+        for employee_sizes in serializer.data:
+            employee_size = employee_sizes["employee_size"]
+            employee_size_count[employee_size] = employee_size_count.get(employee_size, 0) + 1
+
+        employee_size_data = json.dumps(employee_size_count)
+
+        return render(request, self.template_name, {'sector_data': sector_data, "employee_data": employee_size_data})
+
 
 def contact(request):
     return render(request, "JobBoard/contact.html")
